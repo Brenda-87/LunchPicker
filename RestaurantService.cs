@@ -16,6 +16,8 @@ public class RestaurantService
     {
         return await _http.GetFromJsonAsync<List<Restaurant>>("restaurants.json");
     }
+
+    // unit testen
 }
 
 public class Restaurant
