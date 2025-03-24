@@ -1,0 +1,54 @@
+# This workflow will build a .NET project trigger
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # Regular GitHub Actions setup for a .NET project
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore dependencies
+      run: dotnet restore LunchSpin/LunchPicker.csproj
+
+    - name: Build
+      run: dotnet build LunchSpin/LunchPicker.csproj --no-restore
+
+    - name: Test
+      run: dotnet test LunchSpin/LunchPicker.csproj --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish LunchSpin/LunchPicker.csproj -c release -o release
+    
+    # Changes to make the Blazor app work with GitHub Pages
+    # Changes the base-tag in index.html from '/' to 'Blazor-Meets-GithubPages' to match GitHub Pages repository subdirectory
+    # This is required because it needs to point to the correct path when the app is hosted on GitHub Pages
+    - name: Change base-tag in index.html from / to LunchPicker
+      run: sed -i 's|<base href="/" />|<base href="/LunchPicker/" />|g' release/wwwroot/index.html
+
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+    
+    # Deploy the Blazor app to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.6.0
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: release/wwwroot
+        CLEAN: true
