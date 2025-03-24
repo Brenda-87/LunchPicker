@@ -36,10 +36,9 @@ jobs:
     
     # Changes to make the Blazor app work with GitHub Pages
     # Changes the base-tag in index.html from '/' to 'Blazor-Meets-GithubPages' to match GitHub Pages repository subdirectory
-    # This is required because it needs to point to the correct path when the app is hosted on GitHub Pages 
-    # Changed to LunchSpin due that being the Repo name
-    - name: Change base-tag in index.html from / to LunchSpin
-      run: sed -i 's|<base href="/" />|<base href="/LunchSpin/" />|g' release/wwwroot/index.html
+    # This is required because it needs to point to the correct path when the app is hosted on GitHub Pages
+    - name: Change base-tag in index.html from / to LunchPicker
+      run: sed -i 's|<base href="/" />|<base href="/LunchPicker/" />|g' release/wwwroot/index.html
 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
