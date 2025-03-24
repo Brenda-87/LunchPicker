@@ -23,16 +23,16 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore dependencies
-      run: dotnet restore LunchSpin/LunchPicker.csproj
+      run: dotnet restore LunchPicker/LunchPicker.csproj
 
     - name: Build
-      run: dotnet build LunchSpin/LunchPicker.csproj --no-restore
+      run: dotnet build LunchPicker/LunchPicker.csproj --no-restore
 
     - name: Test
-      run: dotnet test LunchSpin/LunchPicker.csproj --no-build --verbosity normal
+      run: dotnet test LunchPicker/LunchPicker.csproj --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish LunchSpin/LunchPicker.csproj -c release -o release
+      run: dotnet publish LunchPicker/LunchPicker.csproj -c release -o release
     
     # Changes to make the Blazor app work with GitHub Pages
     # Changes the base-tag in index.html from '/' to 'Blazor-Meets-GithubPages' to match GitHub Pages repository subdirectory
