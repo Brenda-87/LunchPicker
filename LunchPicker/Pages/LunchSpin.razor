@@ -36,6 +36,7 @@
     protected override async Task OnInitializedAsync()
     {
         restaurants = await Http.GetFromJsonAsync<List<Restaurant>>("sample-data/restaurants.json");
+            // unit testen
     }
 
     private void GenerateRandomRestaurant()
@@ -53,6 +54,13 @@
             List<Restaurant> secondFilteredRestaurants = firstFilteredRestaurants.Where(r => r.Cuisine != secondSelectedRestaurant.Cuisine).ToList();                        
             index = random.Next(secondFilteredRestaurants.Count);
             thirdSelectedRestaurant = secondFilteredRestaurants[index];
+
+            // openingstijden toevoegen
+            // business rules:
+            // 1. selecteer 3 random restaurants
+            // 2. selecteer een random restaurant obv verschillend cuisine
+
+            // maak zoekveld obv cuisine
         }
     }
 }
