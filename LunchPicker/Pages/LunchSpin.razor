@@ -1,30 +1,43 @@
 @page "/lunchspin"
 @using LunchPicker.Models
-@inject HttpClient Http
+@inject RestaurantService RestaurantService
 
 <PageTitle>Lunch Spin</PageTitle>
 
-<div class="container">
+<div class="container text-center">
     <h1>Waar eten we vandaag?</h1> 
     <button class="btn btn-primary" @onclick="GenerateRandomRestaurant">Zoek Lunchtent</button>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col align-self-end">
+                <h4 role="restaurant option 1">Optie 1</h4>
+                <h4>@firstSelectedRestaurant?.Name</h4>
+                <p>Keuken: @firstSelectedRestaurant?.Cuisine</p>
+                <p>Adres: @firstSelectedRestaurant?.Location</p>
+                <p>Openingstijden ma: @firstSelectedRestaurant?.OpeningHoursMonday do: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+            </div>
+                <hr>
+        </div>
 
-    <div class="mt-3">
-        <h4 role="restaurant option 1">Optie 1</h4>
-        <h4>@firstSelectedRestaurant?.Name</h4>
-        <p>Cuisine: @firstSelectedRestaurant?.Cuisine</p>
-        <p>Location: @firstSelectedRestaurant?.Location</p>
-        <hr>
-        <h4 role="restaurant option 2">Optie 2</h4>
-        <h4>@secondSelectedRestaurant?.Name</h4>
-        <p>Cuisine: @secondSelectedRestaurant?.Cuisine</p>
-        <p>Location: @secondSelectedRestaurant?.Location</p>
-        <hr>
+        <div class="row">
+            <div class="col align-self-end">
+                <h4 role="restaurant option 2">Optie 2</h4>
+                <h4>@secondSelectedRestaurant?.Name</h4>
+                <p>Cuisine: @secondSelectedRestaurant?.Cuisine</p>
+                <p>Location: @secondSelectedRestaurant?.Location</p>
+                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday</p>
+                <p>Openingstijden donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+                <hr>
+            </div>
+        </div>
         <h4 role="restaurant option 3">Optie 3</h4>
         <h4>@thirdSelectedRestaurant?.Name</h4>
         <p>Cuisine: @thirdSelectedRestaurant?.Cuisine</p>
         <p>Location: @thirdSelectedRestaurant?.Location</p>
+        <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday</p>
+        <p>Openingstijden donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
     </div>
-</div>
 
 
 @code {
@@ -35,8 +48,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        restaurants = await Http.GetFromJsonAsync<List<Restaurant>>("sample-data/restaurants.json");
-            // unit testen
+        restaurants = await RestaurantService.GetRestaurantsAsync();
     }
 
     private void GenerateRandomRestaurant()

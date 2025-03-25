@@ -1,7 +1,5 @@
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using LunchPicker.Models;
 
 public class RestaurantService
 {
@@ -14,14 +12,9 @@ public class RestaurantService
 
     public async Task<List<Restaurant>> GetRestaurantsAsync()
     {
-        return await _http.GetFromJsonAsync<List<Restaurant>>("restaurants.json");
+        var restaurants = await _http.GetFromJsonAsync<List<Restaurant>>("sample-data/restaurants.json");
+        return restaurants ?? new List<Restaurant>();
     }
 
     // unit testen
-}
-
-public class Restaurant
-{
-    public string Name { get; set; }
-    public string Location { get; set; }
 }
