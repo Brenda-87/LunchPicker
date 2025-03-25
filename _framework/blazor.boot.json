@@ -1,9 +1,9 @@
 {
   "mainAssemblyName": "LunchPicker",
   "resources": {
-    "hash": "sha256-evsnvXOLKJrTkPDdp2nDFOX6SaL+yUQoQ7VHGDO9kmQ=",
+    "hash": "sha256-2HP9G3Y80oTQ1/T/UfDdPa7K0/4szjnMr0SWXuCAtsM=",
     "fingerprinting": {
-      "LunchPicker.loavzh5p6g.wasm": "LunchPicker.wasm",
+      "LunchPicker.v6y5xo80wv.wasm": "LunchPicker.wasm",
       "Microsoft.AspNetCore.Components.1ch918594k.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.horg9ede60.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
       "Microsoft.AspNetCore.Components.WebAssembly.qyco4g5bmd.wasm": "Microsoft.AspNetCore.Components.WebAssembly.wasm",
@@ -64,7 +64,7 @@
       "System.Runtime.InteropServices.JavaScript.0tgicm7vjk.wasm": "sha256-bAbPaONHne7R1hItHoY8/SYWlDb84JZQ1cxd1Y+tJn0="
     },
     "assembly": {
-      "LunchPicker.loavzh5p6g.wasm": "sha256-K0Fez7pCqyWkchBOWLyToyGnKNWPlp6+PJTxd1fhTqo=",
+      "LunchPicker.v6y5xo80wv.wasm": "sha256-V93VNrhYv550jVx0M0GUPbogYtRHPBIj6ngWEzAsz+g=",
       "Microsoft.AspNetCore.Components.1ch918594k.wasm": "sha256-/+4qPE13F7H+3S5dkE6JtPMfrVBsISaepeEUhhKotGo=",
       "Microsoft.AspNetCore.Components.Web.horg9ede60.wasm": "sha256-IeFoTML5Y+08HUO7Y/EzCm+FA6ElP6xk2BCusOjNF9Y=",
       "Microsoft.AspNetCore.Components.WebAssembly.qyco4g5bmd.wasm": "sha256-oitky6v+cC5sMmEkKurORgAL8h6q3jcJRkF7eYw2ubk=",
