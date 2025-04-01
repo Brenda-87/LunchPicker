@@ -6,7 +6,10 @@
 
 <div class="container text-center">
     <h1>Waar eten we vandaag?</h1> 
-    <button class="btn btn-primary" @onclick="GenerateRandomRestaurant">Zoek Lunchtent</button>
+    <div class="container mt-5">
+        <button class="btn btn-primary col-3" @onclick="GenerateRandomRestaurant">Zoek Lunchtent</button>
+    </div>
+
 </div>
     <div class="container">
         <div class="row">
@@ -15,7 +18,7 @@
                 <h4>@firstSelectedRestaurant?.Name</h4>
                 <p>Keuken: @firstSelectedRestaurant?.Cuisine</p>
                 <p>Adres: @firstSelectedRestaurant?.Location</p>
-                <p>Openingstijden ma: @firstSelectedRestaurant?.OpeningHoursMonday do: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
             </div>
                 <hr>
         </div>
@@ -26,17 +29,20 @@
                 <h4>@secondSelectedRestaurant?.Name</h4>
                 <p>Cuisine: @secondSelectedRestaurant?.Cuisine</p>
                 <p>Location: @secondSelectedRestaurant?.Location</p>
-                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday</p>
-                <p>Openingstijden donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
                 <hr>
             </div>
         </div>
-        <h4 role="restaurant option 3">Optie 3</h4>
-        <h4>@thirdSelectedRestaurant?.Name</h4>
-        <p>Cuisine: @thirdSelectedRestaurant?.Cuisine</p>
-        <p>Location: @thirdSelectedRestaurant?.Location</p>
-        <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday</p>
-        <p>Openingstijden donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+
+        <div class="row">
+            <div class="col align-self-end">
+                <h4 role="restaurant option 3">Optie 3</h4>
+                <h4>@thirdSelectedRestaurant?.Name</h4>
+                <p>Cuisine: @thirdSelectedRestaurant?.Cuisine</p>
+                <p>Location: @thirdSelectedRestaurant?.Location</p>
+                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+            </div>
+        </div>
     </div>
 
 
@@ -67,9 +73,6 @@
             index = random.Next(secondFilteredRestaurants.Count);
             thirdSelectedRestaurant = secondFilteredRestaurants[index];
 
-            // openingstijden toevoegen
-            // business rules:
-            // 1. selecteer 3 random restaurants
             // 2. selecteer een random restaurant obv verschillend cuisine
 
             // maak zoekveld obv cuisine
