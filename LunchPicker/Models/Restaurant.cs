@@ -9,6 +9,7 @@ namespace LunchPicker.Models
     public class Restaurant
     {
         public required string Name { get; set; }
+        [JsonPropertyName("cuisine")]
         public string? Cuisine { get; set; }
         public required string Location { get; set; }
         [JsonPropertyName("opening-hours-mon")]

@@ -1,6 +1,6 @@
 [
     { "name": "La Ca Vietnamese Streetfood", "location": "Oude Kijk in het Jatstraat 52", "cuisine": "vietnamees", "opening-hours-mon": "12:00-22:00", "opening-hours-thur": "12:00-22:00" },
-    { "name": "XiaFusion Streetfood-Bar", "location": "Stoeldraaierstraat 52", "cuisine": "aziatische fusion", "opening-hours-mon": "11:30-22:00", "opening-hours-thur": "11:30-22:00"},
+    { "name": "XiaFusion Streetfood-Bar", "location": "Stoeldraaierstraat 52", "cuisine": "fusion", "opening-hours-mon": "11:30-22:00", "opening-hours-thur": "11:30-22:00"},
     { "name": "Het Concerthuis", "location": "Poelestraat 30", "cuisine": "internationaal", "opening-hours-mon": "10:00-22:00", "opening-hours-thur": "10:00-22:00"},
     { "name": "Mr. Mofongo", "location": "Oude Boteringestraat 30", "cuisine": "internationaal", "opening-hours-mon": "11:00-01:00", "opening-hours-thur": "11:00-01:00"},
     { "name": "Magoya", "location": "Stoeldraaierstraat 56", "cuisine": "aziatisch", "opening-hours-mon": "12:00-21:30", "opening-hours-thur": "11:00-21:30"},

@@ -7,75 +7,145 @@
 <div class="container text-center">
     <h1>Waar eten we vandaag?</h1> 
     <div class="container mt-5">
-        <button class="btn btn-primary col-3" @onclick="GenerateRandomRestaurant">Zoek Lunchtent</button>
+        <div class="dropdown mb-5">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @(string.IsNullOrEmpty(selectedCuisine) ? "Soort keuken" : char.ToUpper(selectedCuisine[0]) + selectedCuisine.Substring(1).ToLower())
+            </button>
+            <ul class="dropdown-menu">
+                @if (cuisines != null)
+                {
+                    @foreach (var cuisine in cuisines)
+                    {
+                        <li>
+                            <a class="dropdown-item" @onclick="() => SelectCuisine(cuisine)">
+                                @((!string.IsNullOrEmpty(cuisine) ? char.ToUpper(cuisine[0]) + cuisine.Substring(1).ToLower() : string.Empty))
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="find-restaurants">
+            <button class="btn btn-primary col-3" @onclick="GenerateRandomRestaurant">Vind Lunchtents</button>
+        </div>
     </div>
-
 </div>
-    <div class="container">
+
+    <div class="container mt-5">
         <div class="row">
             <div class="col align-self-end">
                 <h4 role="restaurant option 1">Optie 1</h4>
-                <h4>@firstSelectedRestaurant?.Name</h4>
-                <p>Keuken: @firstSelectedRestaurant?.Cuisine</p>
+                @* TODO: uppercase first letter *@
+                @* <h4>@(string.IsNullOrEmpty(firstSelectedRestaurant?.Name).char.ToUpper(firstSelectedRestaurant?.Name[0]) + firstSelectedRestaurant.Substring(1).ToLower())</h4> *@
+                    @* @firstSelectedRestaurant?.Name </h4>*@
+                <p>Keuken: @firstSelectedRestaurant?.Cuisine[0]</p>
                 <p>Adres: @firstSelectedRestaurant?.Location</p>
                 <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
             </div>
-                <hr>
+            <hr>
         </div>
 
-        <div class="row">
-            <div class="col align-self-end">
-                <h4 role="restaurant option 2">Optie 2</h4>
-                <h4>@secondSelectedRestaurant?.Name</h4>
-                <p>Cuisine: @secondSelectedRestaurant?.Cuisine</p>
-                <p>Location: @secondSelectedRestaurant?.Location</p>
-                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+        @if (secondSelectedRestaurant != null)
+        {
+            <div class="row">
+                <div class="col align-self-end">
+
+                        <h4 role="restaurant option 2">Optie 2</h4>
+                        <h4>@secondSelectedRestaurant?.Name</h4>
+                        <p>Keuken: @secondSelectedRestaurant?.Cuisine</p>
+                        <p>Adres: @secondSelectedRestaurant?.Location</p>
+                        <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+                </div>
                 <hr>
             </div>
-        </div>
+        }
 
-        <div class="row">
-            <div class="col align-self-end">
-                <h4 role="restaurant option 3">Optie 3</h4>
-                <h4>@thirdSelectedRestaurant?.Name</h4>
-                <p>Cuisine: @thirdSelectedRestaurant?.Cuisine</p>
-                <p>Location: @thirdSelectedRestaurant?.Location</p>
-                <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+        @if (thirdSelectedRestaurant != null)
+        {
+            <div class="row">
+                <div class="col align-self-end">
+
+                        <h4 role="restaurant option 3">Optie 3</h4>
+                        <h4>@thirdSelectedRestaurant?.Name</h4>
+                        <p>Keuken: @thirdSelectedRestaurant?.Cuisine</p>
+                        <p>Adres: @thirdSelectedRestaurant?.Location</p>
+                        <p>Openingstijden maandag: @firstSelectedRestaurant?.OpeningHoursMonday donderdag: @firstSelectedRestaurant?.OpeningHoursThursday</p>
+                </div>
             </div>
-        </div>
+        }
     </div>
-
 
 @code {
     private List<Restaurant>? restaurants;
     private Restaurant? firstSelectedRestaurant;
     private Restaurant? secondSelectedRestaurant;
     private Restaurant? thirdSelectedRestaurant;
+    private List<string?> cuisines;
+    private string? selectedCuisine = null;
 
     protected override async Task OnInitializedAsync()
     {
         restaurants = await RestaurantService.GetRestaurantsAsync();
+        cuisines = restaurants.Select(r => r.Cuisine).Distinct().ToList();
     }
 
     private void GenerateRandomRestaurant()
     {
         if (restaurants != null && restaurants.Count > 0)
         {
-            var random = new Random();
-            int index = random.Next(restaurants.Count);
-            firstSelectedRestaurant = restaurants[index];
+            @* Filter restaurants based on cuisine *@
+            var filteredRestaurants = string.IsNullOrEmpty(selectedCuisine)
+                ? restaurants
+                : restaurants.Where(r => r.Cuisine == selectedCuisine)
+                .ToList();
             
-            List<Restaurant> firstFilteredRestaurants = restaurants.Where(r => r.Cuisine != firstSelectedRestaurant.Cuisine).ToList();
-            index = random.Next(firstFilteredRestaurants.Count);
-            secondSelectedRestaurant = firstFilteredRestaurants[index];
+            if (filteredRestaurants.Count >= 3)
+            {
+                var random = new Random();
 
-            List<Restaurant> secondFilteredRestaurants = firstFilteredRestaurants.Where(r => r.Cuisine != secondSelectedRestaurant.Cuisine).ToList();                        
-            index = random.Next(secondFilteredRestaurants.Count);
-            thirdSelectedRestaurant = secondFilteredRestaurants[index];
+                int index = random.Next(filteredRestaurants.Count);
+                firstSelectedRestaurant = filteredRestaurants[index];
+                
+                var firstFilteredRestaurants = filteredRestaurants
+                    .Where(r => r.Cuisine != firstSelectedRestaurant.Cuisine)
+                    .ToList();
+                
+                if (firstFilteredRestaurants.Count > 0)
+                {
+                    index = random.Next(firstFilteredRestaurants.Count);
+                    secondSelectedRestaurant = firstFilteredRestaurants[index];
 
-            // 2. selecteer een random restaurant obv verschillend cuisine
-
-            // maak zoekveld obv cuisine
+                    var secondFilteredRestaurants = firstFilteredRestaurants
+                        .Where(r => r.Cuisine != secondSelectedRestaurant.Cuisine)
+                        .ToList();
+                    
+                    if (secondFilteredRestaurants.Count > 0)
+                    {
+                        index = random.Next(secondFilteredRestaurants.Count);
+                        thirdSelectedRestaurant = secondFilteredRestaurants[index];
+                    }
+                    else
+                    {
+                        thirdSelectedRestaurant = null;
+                    }
+                }
+                else
+                {
+                    secondSelectedRestaurant = null;
+                    thirdSelectedRestaurant = null;
+                }                                             
+            }
+            else
+            {
+                firstSelectedRestaurant = null;
+                secondSelectedRestaurant = null;
+                thirdSelectedRestaurant = null;
+            }
         }
+    }
+
+    private void SelectCuisine(string cuisine)
+    {
+        selectedCuisine = cuisine;
     }
 }

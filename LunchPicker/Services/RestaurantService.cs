@@ -15,6 +15,4 @@ public class RestaurantService
         var restaurants = await _http.GetFromJsonAsync<List<Restaurant>>("sample-data/restaurants.json");
         return restaurants ?? new List<Restaurant>();
     }
-
-    // unit testen
 }
